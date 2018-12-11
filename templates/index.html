@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{{ page_title }}</title>
+  <link rel="stylesheet" href="{{ static_url('css/style.css')}}">
+</head>
+
+<body>
+  <div id="container">
+    <header>
+      <h1>{{ header_text }}</h1>
+    </header>
+
+    <div id="main">
+      <div class="input_area">
+        <span>手写数字：</span>
+        <canvas></canvas>
+        <button type="button">识别</button>
+        <button type="button">清空</button>
+      </div>
+      <div class="output_area">
+        <span>图中的数字是：</span>
+      </div>
+    </div>
+
+    <footer>
+    </footer>
+  </div>
+
+  <script src="{{ static_url('js/signature_pad.js') }}"></script>
+  <script src="{{ static_url('js/signature_pad.js') }}"></script>
+
+</body>
+
+</html>
