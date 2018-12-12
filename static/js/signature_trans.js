@@ -36,14 +36,31 @@ function resizeCanvas() {
 window.onresize = resizeCanvas;
 resizeCanvas();
 
-clearButton.addEventListener("click", function (event) {
+clearButton.addEventListener("click", function () {
   signaturePad.clear();
 });
 
-recButton.addEventListener("click", function (event) {
+recButton.addEventListener("click", function () {
   if (signaturePad.isEmpty()) {
     alert("先写个数呗~");
   } else {
     const data = signaturePad.toData();
+    post('/', data);
   }
 });
+
+function post(url, data) {  // 以虚拟表单形式发送post
+  var temp = document.createElement("form");
+  temp.action = url;
+  temp.method = "post";
+  temp.style.display = "none";
+  
+  var message = document.createElement("textarea");
+  message.name = "imageCode";
+  message.value = data;
+  temp.appendChild(message);
+
+  document.body.appendChild(temp);
+  temp.submit();
+  return temp;
+}
