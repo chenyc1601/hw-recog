@@ -44,8 +44,8 @@ recButton.addEventListener("click", function () {
   if (signaturePad.isEmpty()) {
     alert("先写个数呗~");
   } else {
-    const data = signaturePad.toData();
-    post('/', data);
+    const dataURL = signaturePad.toDataURL("image/jpeg");
+    post('/', dataURL);
   }
 });
 

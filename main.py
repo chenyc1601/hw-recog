@@ -7,6 +7,9 @@ import tornado.httpserver
 import tornado.ioloop
 from tornado.options import define, options
 
+from neural_network import NeuralNetwork
+from img import Image
+
 define("port", default=8000, help="run on the given port", type=int)
 
 class Application(tornado.web.Application):
@@ -32,18 +35,19 @@ class MainHandler(tornado.web.RequestHandler):
         )
 
     def post(self) :
-
+        outputDigi = self.recognize(self.get_argument('imageCode'))
         self.render(
             "index.html", 
             page_title = "Title", 
             header_text = "Index", 
-            output_content = self.get_argument('imageCode')
+            ## output_content = self.get_argument('imageCode')
+            output_content = "图中数字是:{0}".format(outputDigi)
         )
 
     def recognize(self, imageCode) :
-        pass
-
-
+        n = NeuralNetwork(False, 784, 200, 10, 0.01)
+        imageArray = Image(imageCode).imgData
+        return n.guess(imageArray)
 
 def main():
     tornado.options.parse_command_line()
