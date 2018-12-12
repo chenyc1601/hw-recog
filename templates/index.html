@@ -16,11 +16,11 @@
       <div class="input_area">
         <span>手写数字：</span>
         <canvas></canvas>
-        <button type="button">识别</button>
-        <button type="button">清空</button>
+        <button type="button" data-action="recog">识别</button>
+        <button type="button" data-action="clear">清空</button>
       </div>
       <div class="output_area">
-        <span>图中的数字是：</span>
+        {{ output_content }}
       </div>
     </div>
 
@@ -29,7 +29,7 @@
   </div>
 
   <script src="{{ static_url('js/signature_pad.js') }}"></script>
-  <script src="{{ static_url('js/signature_pad.js') }}"></script>
+  <script src="{{ static_url('js/signature_trans.js') }}"></script>
 
 </body>
 

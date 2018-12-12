@@ -27,7 +27,8 @@ class MainHandler(tornado.web.RequestHandler):
 		self.render(
 			"index.html", 
             page_title = "Title", 
-            header_text = "Index"
+            header_text = "Index", 
+            output_content = None
 		)
 
 
