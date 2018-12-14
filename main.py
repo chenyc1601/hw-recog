@@ -10,6 +10,7 @@ from tornado.options import define, options
 from neural_network import NeuralNetwork
 from img import Image
 import pickle
+import numpy as np
 
 define("port", default=8000, help="run on the given port", type=int)
 
@@ -22,8 +23,7 @@ class Application(tornado.web.Application):
         settings = dict(
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             static_path=os.path.join(os.path.dirname(__file__), "static"),
-            ui_modules={"Train": TrainModule}, 
-            debug=False
+            debug=True
             )
         tornado.web.Application.__init__(self, handlers, **settings)
 
@@ -37,44 +37,45 @@ class IndexHandler(tornado.web.RequestHandler):
         )
 
     def post(self):
-        #TODO: 训练之后重新加载首页
-        pass
+        if self.get_argument('actOpt') == 'train' :
+            targetDigi = int(self.get_argument('postContent'))
+            train(targetDigi)
+            self.render(
+                "index.html", 
+                page_title = "学习一个", 
+                header_text = "继续帮助改进吧？" 
+            )
 
 
 class ResultHandler(tornado.web.RequestHandler):
     def post(self) :
-        if self.get_argument('actOpt') is 'recog' :
-            outputDigi = self.recognize(self.get_argument('postContent'))
+        if self.get_argument('actOpt') == 'recog' :
+            outputDigi = recognize(self.get_argument('postContent'))
             self.render(
-                "index.html", 
+                "result.html", 
                 page_title = "数字识别中……", 
                 header_text = "认对了吗？", 
-                ## output_content = self.get_argument('imageCode')
-                output_content = "图中数字是:{0}".format(outputDigi), 
-            )
-
-        elif self.get_argument('actOpt') is 'train' :
-            targetDigi = int(self.get_argument('postContent'))
-            self.render(
-                "index.html", 
-                page_title = "学习一个", 
-                header_text = "帮助改进", 
-                ## output_content = self.get_argument('imageCode')
-                output_content = "图中数字是:{0}".format(outputDigi), 
+                output_content = "图中数字是:{0}".format(outputDigi)
             )
 
 
-    def recognize(self, imageCode) :
-        n = NeuralNetwork(False, 784, 200, 10, 0.01)
-        imageArray = Image(imageCode).imgData
-        return n.guess(imageArray)
+def recognize(imageCode) :
+    n = NeuralNetwork(False, 784, 200, 10, 0.01)
+    imageArray = Image(imageCode).imgData
+    return n.guess(imageArray)
 
-    def train(self, digit) :
-        #TODO: 训练
-        n = NeuralNetwork(False, 784, 200, 10, 0.01)
-        with open("imageData.pickle", 'rb') as handle :
-            imageArray = pickle.load(handle)
-        n.train()
+
+def train(digit) :
+    n = NeuralNetwork(False, 784, 200, 10, 0.01)
+    with open("imageData.pickle", 'rb') as handle :
+        imageArray = pickle.load(handle)
+    targetArray = np.zeros(10) + 0.01
+    targetArray[int(digit)] = 0.99
+    n.train(imageArray, targetArray)
+    with open('w_I_H.pickle', 'wb') as handle :
+        pickle.dump(n.w_I_H_n, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    with open('w_H_O.pickle', 'wb') as handle :
+        pickle.dump(n.w_H_O_n, handle, protocol=pickle.HIGHEST_PROTOCOL)        
 
 
 def main():

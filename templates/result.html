@@ -1,18 +1,26 @@
 {% extends "main.html" %}
 
-{% block main %}
-<span>默认内容</span>
+{% block header %}
+<h1>{{ header_text }}</h1>
 {% end %}
 
+{% block main %}
+{{ output_content }}
+<br>
 <span>正确的数字是：</span>
 <br>
-<button type="button" data-action="train" value="0">0</button>
-<button type="button" data-action="train" value="1">1</button>
-<button type="button" data-action="train" value="2">2</button>
-<button type="button" data-action="train" value="3">3</button>
-<button type="button" data-action="train" value="4">4</button>
-<button type="button" data-action="train" value="5">5</button>
-<button type="button" data-action="train" value="6">6</button>
-<button type="button" data-action="train" value="7">7</button>
-<button type="button" data-action="train" value="8">8</button>
-<button type="button" data-action="train" value="9">9</button>
+<button type="button" data-action="train0" value="0">0</button>
+<button type="button" data-action="train1" value="1">1</button>
+<button type="button" data-action="train2" value="2">2</button>
+<button type="button" data-action="train3" value="3">3</button>
+<button type="button" data-action="train4" value="4">4</button>
+<button type="button" data-action="train5" value="5">5</button>
+<button type="button" data-action="train6" value="6">6</button>
+<button type="button" data-action="train7" value="7">7</button>
+<button type="button" data-action="train8" value="8">8</button>
+<button type="button" data-action="train9" value="9">9</button>
+{% end %}
+
+{% block script %}
+<script src="{{ static_url('js/result.js') }}"></script>
+{% end %}

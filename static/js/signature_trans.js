@@ -1,7 +1,6 @@
 var wrapper = document.getElementById("main");
 var recButton = wrapper.querySelector("[data-action=recog]");
 var clearButton = wrapper.querySelector("[data-action=clear]");
-var trainButton = wrapper.querySelector("[data-action=train]")
 var canvas = wrapper.querySelector("canvas");
 
 var signaturePad = new SignaturePad(canvas, {
@@ -46,13 +45,10 @@ recButton.addEventListener("click", function () {
     alert("先写个数呗~");
   } else {
     const dataURL = signaturePad.toDataURL("image/jpeg");
-    post('/handwriting', 'recog', dataURL);
+    post('/handwriting/result', 'recog', dataURL);
   }
 });
 
-trainButton.addEventListener("click", function () {
-  post('/handwriting', 'train', trainButton.value)
-})
 
 function post(url, opt, data) {  // 以虚拟表单形式发送post
   var temp = document.createElement("form");
