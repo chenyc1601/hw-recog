@@ -15,7 +15,7 @@ define("port", default=8000, help="run on the given port", type=int)
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
-            (r"/", MainHandler)
+            (r"/handwriting", MainHandler)
         ]
         settings = dict(
             template_path=os.path.join(os.path.dirname(__file__), "templates"),

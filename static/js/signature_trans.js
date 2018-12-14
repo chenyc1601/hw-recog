@@ -45,7 +45,7 @@ recButton.addEventListener("click", function () {
     alert("先写个数呗~");
   } else {
     const dataURL = signaturePad.toDataURL("image/jpeg");
-    post('/', dataURL);
+    post('/handwriting', dataURL);
   }
 });
 
