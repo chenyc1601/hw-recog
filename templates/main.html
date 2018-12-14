@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{{ page_title }}</title>
+  {% block css %}{% end %}
+</head>
+
+<body>
+  <div id="container">
+    <header>
+      {% block header %}<h1>默认标题</h1>{% end %}
+    </header>
+
+    <div id="main">
+      {% block main %}
+      <span>默认内容</span>
+      {% end %}
+    </div>
+
+    <footer>
+      {% block footer %}
+      <span>默认页脚</span>
+      {% end %}
+    </footer>
+  </div>
+
+  {% block script %}{% end %}
+
+</body>
+
+</html>

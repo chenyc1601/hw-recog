@@ -1,39 +1,23 @@
-<!DOCTYPE html>
-<html>
+{% extends "main.html" %}
 
-<head>
-  <title>{{ page_title }}</title>
-  <link rel="stylesheet" href="{{ static_url('css/style.css')}}">
-</head>
+{% block css %}
+<link rel="stylesheet" href="{{ static_url('css/style.css')}}">
+{% end %}
 
-<body>
-  <div id="container">
-    <header>
-      <h1>{{ header_text }}</h1>
-    </header>
+{% block header %}
+<h1>{{ header_text }}</h1>
+{% end %}
 
-    <div id="main">
-      <div class="input_area">
-        <span>手写数字：</span>
-        <canvas></canvas>
-        <button type="button" data-action="recog">识别</button>
-        <button type="button" data-action="clear">清空</button>
-      </div>
-      <div class="output_area">
-        {{ output_content }}
-      </div>
-      <div class="train_area">
-        {{ train_content }}
-      </div>
-    </div>
+{% block main %}
+<div class="input_area">
+  <span>手写数字：</span>
+  <canvas></canvas>
+  <button type="button" data-action="recog">识别</button>
+  <button type="button" data-action="clear">清空</button>
+</div>
+{% end %}
 
-    <footer>
-    </footer>
-  </div>
-
-  <script src="{{ static_url('js/signature_pad.js') }}"></script>
-  <script src="{{ static_url('js/signature_trans.js') }}"></script>
-
-</body>
-
-</html>
+{% block script %}
+<script src="{{ static_url('js/signature_pad.js') }}"></script>
+<script src="{{ static_url('js/signature_trans.js') }}"></script>
+{% end %}

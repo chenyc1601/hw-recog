@@ -1,6 +1,7 @@
 var wrapper = document.getElementById("main");
 var recButton = wrapper.querySelector("[data-action=recog]");
 var clearButton = wrapper.querySelector("[data-action=clear]");
+var trainButton = wrapper.querySelector("[data-action=train]")
 var canvas = wrapper.querySelector("canvas");
 
 var signaturePad = new SignaturePad(canvas, {
@@ -45,20 +46,29 @@ recButton.addEventListener("click", function () {
     alert("先写个数呗~");
   } else {
     const dataURL = signaturePad.toDataURL("image/jpeg");
-    post('/handwriting', dataURL);
+    post('/handwriting', 'recog', dataURL);
   }
 });
 
-function post(url, data) {  // 以虚拟表单形式发送post
+trainButton.addEventListener("click", function () {
+  post('/handwriting', 'train', trainButton.value)
+})
+
+function post(url, opt, data) {  // 以虚拟表单形式发送post
   var temp = document.createElement("form");
   temp.action = url;
   temp.method = "post";
   temp.style.display = "none";
+
+  var option = document.createElement("textarea");
+  option.name = "actOpt";
+  option.value = opt;
+  temp.appendChild(option);
   
-  var message = document.createElement("textarea");
-  message.name = "imageCode";
-  message.value = data;
-  temp.appendChild(message);
+  var content = document.createElement("textarea");
+  content.name = "postContent";
+  content.value = data;
+  temp.appendChild(content);
 
   document.body.appendChild(temp);
   temp.submit();
