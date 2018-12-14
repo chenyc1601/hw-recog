@@ -49,6 +49,8 @@ class MainHandler(tornado.web.RequestHandler):
         imageArray = Image(imageCode).imgData
         return n.guess(imageArray)
 
+    def train(self, )
+
 def main():
     tornado.options.parse_command_line()
     http_server = tornado.httpserver.HTTPServer(Application())
