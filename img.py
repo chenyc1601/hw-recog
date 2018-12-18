@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding: utf8 -*-
 
 import PIL.Image as pImage
 import numpy as np

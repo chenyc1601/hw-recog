@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding: utf8 -*-
 
 import numpy as np
 from scipy import special
@@ -112,3 +112,8 @@ def trans(ouArray) :
     ouList = ouArray.tolist()
     ouDigi = ouList.index(max(ouList))
     return ouDigi
+
+
+if __name__ == "__main__":
+    n = NeuralNetwork(False, 784, 200, 10, 0.01)
+    
